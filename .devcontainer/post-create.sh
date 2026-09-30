@@ -7,8 +7,8 @@ export PATH="$FOUNDRY_DIR/bin:$PATH"
 "$FOUNDRY_DIR/bin/foundryup"
 echo 'export PATH="$HOME/.foundry/bin:$PATH"' >> ~/.bashrc
 
-[ -d contracts ] || forge init contracts
-[ -d frontend ] || { npm create vite@latest frontend -- --template vanilla --no-interactive; (cd frontend && npm i && npm i ethers@^6); }
+[ -d contracts ] || forge init contracts --no-git
+[ -d frontend ]  || { npm create -y vite@latest frontend -- --template vanilla --no-interactive && (cd frontend && npm i && npm i ethers@^6); }
 
 cat > contracts/foundry.toml <<'TOML'
 [profile.default]
@@ -17,7 +17,7 @@ out = "out"
 libs = ["lib"]
 
 [rpc_endpoints]
-sepolia = "${SEPOLIA_RPC_URL}"
+red = "${RPC_URL}"
 TOML
 
 forge --version; cast --version; anvil --version
