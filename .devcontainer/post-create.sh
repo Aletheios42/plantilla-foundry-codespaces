@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
+
+export FOUNDRY_DIR="$HOME/.foundry"
 curl -L https://foundry.paradigm.xyz | bash
-foundryup
+export PATH="$FOUNDRY_DIR/bin:$PATH"
+"$FOUNDRY_DIR/bin/foundryup"
+echo 'export PATH="$HOME/.foundry/bin:$PATH"' >> ~/.bashrc
 
 [ -d contracts ] || forge init contracts
 [ -d frontend ] || { npm create vite@latest frontend -- --template vanilla --no-interactive; (cd frontend && npm i && npm i ethers@^6); }
